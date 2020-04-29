@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { EXTENSION_NAME, INSPECTION_FILENAME } from '../../constants';
+import { EXTENSION_NAME, INSPECTION_FILENAME, NONZERO_RET_CODE, NO_SLN_WARN } from '../../constants';
 import { selectSolutionFile } from '../../utils/workspace';
 import { loadDiagnostics } from './diagnostics';
 
@@ -14,7 +14,7 @@ export class InspectCodeExecutor {
 
 	private showStatusBarItem(): void {
 		this.statusBarItem.text = "$(sync~spin) Inspect Code";
-		this.statusBarItem.tooltip = "Inspect Code command is running";
+		this.statusBarItem.tooltip = "R#: KInspecting code";
 		this.statusBarItem.command = `${EXTENSION_NAME}.showoutput`;
 		this.statusBarItem.show();
 	};
@@ -37,7 +37,7 @@ export class InspectCodeExecutor {
 
 		cp.on('exit', code => {
 			if (code !== 0) {
-				vscode.window.showErrorMessage(`Process did not exit with 0 code. Please check output.`);
+				vscode.window.showErrorMessage(NONZERO_RET_CODE);
 				this.statusBarItem.hide();
 			} else {
 				const dirPath = path.dirname(filePath);
@@ -46,7 +46,7 @@ export class InspectCodeExecutor {
 				loadDiagnostics(dirPath, this.diagnosticCollection);
 
 				this.hideStatusBarItem();
-				this.output.appendLine('Fnished Inspect Code command.');
+				this.output.appendLine('Done.');
 			}
 		});
 	}
@@ -54,7 +54,7 @@ export class InspectCodeExecutor {
 	public run(): void {
 		selectSolutionFile(filePath => {
 			if (!filePath) {
-				vscode.window.showWarningMessage(`Not found any '*.sln' file.`);
+				vscode.window.showWarningMessage(NO_SLN_WARN);
 				return;
 			}
 

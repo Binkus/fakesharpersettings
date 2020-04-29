@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { DUPFINDER_FILENAME, EXTENSION_NAME } from '../../constants';
+import { DUPFINDER_FILENAME, EXTENSION_NAME, NO_SLN_WARN, NONZERO_RET_CODE } from '../../constants';
 import { selectSolutionFile } from '../../utils/workspace';
 import { DupfinderTreeDataProvider } from './tree';
 import { parsefile } from './parser';
@@ -15,7 +15,7 @@ export class DupfinderExecutor {
 
 	private showStatusBarItem() {
 		this.statusBarItem.text = "$(sync~spin) Dupfinder";
-		this.statusBarItem.tooltip = "Dupfinder command is running";
+		this.statusBarItem.tooltip = "R#: Running Dupfinder";
 		this.statusBarItem.command = `${EXTENSION_NAME}.showoutput`;
 		this.statusBarItem.show();
 	}
@@ -42,10 +42,10 @@ export class DupfinderExecutor {
 
 		cp.on('exit', code => {
 			this.hideStatusBarItem();
-			this.output.appendLine('Fnished Dupfinder command.');
+			this.output.appendLine('Done.');
 
 			if (code !== 0) {
-				vscode.window.showErrorMessage(`Process did not exit with 0 code. Please check output.`);
+				vscode.window.showErrorMessage(NONZERO_RET_CODE);
 			} else {
 				try {
 					const duplicatesReport = parsefile(xmlPath);
@@ -65,7 +65,7 @@ export class DupfinderExecutor {
 	public run(): void {
 		selectSolutionFile(filePath => {
 			if (!filePath) {
-				vscode.window.showWarningMessage(`Not found any '*.sln' file.`);
+				vscode.window.showWarningMessage(NO_SLN_WARN);
 				return;
 			}
 

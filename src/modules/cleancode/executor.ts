@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
 import * as vscode from 'vscode';
-import { EXTENSION_NAME } from '../../constants';
+import { EXTENSION_NAME, NO_SLN_WARN, NONZERO_RET_CODE } from '../../constants';
 import { selectSolutionFile } from '../../utils/workspace';
 
 export class CleanupCodeExecutor {
@@ -11,7 +11,7 @@ export class CleanupCodeExecutor {
 
 	private showStatusBarItem() {
 		this.statusBarItem.text = "$(sync~spin) Cleanup Code";
-		this.statusBarItem.tooltip = "Cleanup Code command is running";
+		this.statusBarItem.tooltip = "R#: Cleaning up code";
 		this.statusBarItem.command = `${EXTENSION_NAME}.showoutput`;
 		this.statusBarItem.show();
 	}
@@ -34,23 +34,23 @@ export class CleanupCodeExecutor {
 
 		cp.on('exit', code => {
 			if (code !== 0) {
-				vscode.window.showErrorMessage(`Process did not exit with 0 code. Please check output.`);
+				vscode.window.showErrorMessage(NONZERO_RET_CODE);
 			}
 
 			this.hideStatusBarItem();
-			this.output.appendLine('Fnished Cleanup Code command.');
+			this.output.appendLine('Done.');
 		});
 	}
 
 	public run() {
 		selectSolutionFile(filePath => {
 			if (!filePath) {
-				vscode.window.showWarningMessage(`Not found any '*.sln' file.`);
+				vscode.window.showWarningMessage(NO_SLN_WARN);
 				return;
 			}
 
-			vscode.window.showQuickPick(['No. Do not change my codes.', 'Yes. Cleanup my codes.'], {
-				placeHolder: 'WARNING! Can i change your codes?'
+			vscode.window.showQuickPick(["No, don't", 'Yes, cleanup my code.'], {
+				placeHolder: 'WARNING! Your code will be modified by R#, continue?'
 			}).then(value => {
 				if (value && value.startsWith('Yes')) {
 					this.showStatusBarItem();

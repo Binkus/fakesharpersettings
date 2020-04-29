@@ -1,21 +1,16 @@
-# fakesharper
+# fakesharper**settings**
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fakesharper/fakesharper/CI?logo=github&style=flat-square)
-[![marketplace](https://img.shields.io/visual-studio-marketplace/v/fakesharper.fakesharper?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=fakesharper.fakesharper)
-[![gitter.im](https://img.shields.io/gitter/room/fakesharper/community?style=flat-square)](https://gitter.im/fakesharper/community)
-![license](https://img.shields.io/github/license/fakesharper/fakesharper?style=flat-square)
+This extension provides a wrapper for the R# CLI. The CLI executables are available as commands in the command pallette and any command line arguments can be configurable from the VS Code config files.
 
-This is vscode extension for (free) ReSharper.
-
-> Warning: If your project is too large, this command can work slowly, because of cli tool. This is why we made this extension as command.
+This extension is a fork of fakesharper
 
 ## Inspect Code
 
-![example](https://raw.githubusercontent.com/fakesharper/fakesharper/master/assets/example.gif)
+![example](https://raw.githubusercontent.com/twounderscorez/fakesharpersettings/master/assets/example.gif)
 
 ## Dupfinder
 
-![example](https://raw.githubusercontent.com/fakesharper/fakesharper-assets/master/dupfinder.gif)
+![example](https://raw.githubusercontent.com/twounderscorez/fakesharpersettings/master/assets/dupfinder.gif)
 
 ## Requirements
 
@@ -43,7 +38,7 @@ This is vscode extension for (free) ReSharper.
 
 ### Does this extension make Visual Studio Code slower?
 
-**No!** Currently fakesharper works as command. This extension works only when you run any command.
+**No!** Currently fakesharper**settings** works as command. This extension works only when you run any command.
 
 -----------------------------------------------------------------------------------------------------------
 

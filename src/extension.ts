@@ -6,8 +6,16 @@ import { CleanupCodeExecutor } from './modules/cleancode/executor';
 import { DupfinderExecutor } from './modules/dupfinder/executor';
 import { Fragment } from './modules/dupfinder/models';
 import { DupfinderTreeDataProvider } from './modules/dupfinder/tree';
+import { Config } from './modules/config';
 
 export function activate(context: vscode.ExtensionContext) {
+	const config = Config.getConfig();
+	config.loadConfig();
+
+	vscode.workspace.onDidChangeConfiguration(function (event) {
+		config.loadConfig();
+	});
+
 	const diagnosticCollection = vscode.languages.createDiagnosticCollection(EXTENSION_NAME);
 
 	const output = vscode.window.createOutputChannel(EXTENSION_NAME);
@@ -15,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const dataProvider = new DupfinderTreeDataProvider();
 
-	const tree = vscode.window.createTreeView(`dupfinder`, {
+	const tree = vscode.window.createTreeView(`${EXTENSION_NAME}.dupfinder`, {
 		canSelectMany: false,
 		treeDataProvider: dataProvider
 	});

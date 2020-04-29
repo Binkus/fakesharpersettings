@@ -1,7 +1,7 @@
 {
-	"name": "fakesharper",
-	"publisher": "fakesharper",
-	"displayName": "fakesharper",
+	"name": "fakesharpersettings",
+	"publisher": "fakesharpersettings",
+	"displayName": "fakesharpersettings",
 	"description": "ReSharper features for Visual Studio Code",
 	"version": "0.3.0",
 	"preview": true,
@@ -38,39 +38,39 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "fakesharper.inspectcode",
-				"title": "[fakesharper] Inspect Code"
+				"command": "fakesharpersettings.inspectcode",
+				"title": "[fakesharpersettings] Inspect Code"
 			},
 			{
-				"command": "fakesharper.cleandiagnostics",
-				"title": "[fakesharper] Clean Diagnostics"
+				"command": "fakesharpersettings.cleandiagnostics",
+				"title": "[fakesharpersettings] Clean Diagnostics"
 			},
 			{
-				"command": "fakesharper.cleanalldiagnostics",
-				"title": "[fakesharper] Clean All Diagnostics"
+				"command": "fakesharpersettings.cleanalldiagnostics",
+				"title": "[fakesharpersettings] Clean All Diagnostics"
 			},
 			{
-				"command": "fakesharper.cleanupcode",
-				"title": "[fakesharper] Cleanup Code"
+				"command": "fakesharpersettings.cleanupcode",
+				"title": "[fakesharpersettings] Cleanup Code"
 			},
 			{
-				"command": "fakesharper.reloaddiagnostics",
-				"title": "[fakesharper] Reload Diagnostics"
+				"command": "fakesharpersettings.reloaddiagnostics",
+				"title": "[fakesharpersettings] Reload Diagnostics"
 			},
 			{
-				"command": "fakesharper.dupfinder.run",
-				"title": "[fakesharper] Run Dupfinder"
+				"command": "fakesharpersettings.dupfinder.run",
+				"title": "[fakesharpersettings] Run Dupfinder"
 			},
 			{
-				"command": "fakesharper.dupfinder.clean",
-				"title": "[fakesharper] Clean Duplicates"
+				"command": "fakesharpersettings.dupfinder.clean",
+				"title": "[fakesharpersettings] Clean Duplicates"
 			}
 		],
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "fakesharper",
-					"title": "fakesharper",
+					"id": "fakesharpersettings",
+					"title": "fakesharpersettings",
 					"icon": "resources/icon/csharp.svg"
 				}
 			]
@@ -78,7 +78,7 @@
 		"views": {
 			"fakesharper": [
 				{
-					"id": "dupfinder",
+					"id": "fakesharpersettings.dupfinder",
 					"name": "Dupfinder"
 				}
 			]
@@ -111,7 +111,111 @@
 					"group": "inspectcode"
 				}
 			]
-		}
+		},
+		"configuration": [
+			{
+				"title": "R# CLI Configuration",
+				"properties": {
+					"fakesharpersettings.cleanupcode": {
+						"type": "object",
+						"default": {},
+						"description": "CLI args for code cleanup",
+						"properties": {
+							"ConfigPath": {
+								"type": "string",
+								"default": "",
+								"description": "Path to configuration file here parameters are specified (use 'config-create' option to create sample file)"
+							},
+							"SettingsPath": {
+								"type": "string",
+								"default": "",
+								"description": "Path to the file to use custom settings from (default: Use R#'s solution shared settings if exists)."
+							},
+							"ProfileName": {
+								"type": "string",
+								"default": "",
+								"description": "Name of the code cleanup profile. Full cleanup profile is used if nothing specified."
+							},
+							"Verbosity": {
+								"type": "string",
+								"default": "",
+								"description": "Display this amount of information in the log",
+								"enum": [
+									"OFF",
+									"FATAL",
+									"ERROR",
+									"WARN",
+									"INFO",
+									"VERBOSE",
+									"TRACE"
+								]
+							},
+							"Toolset": {
+								"type": "string",
+								"default": "",
+								"description": "MsBuild toolset version. Highest available is used by default. Example: --toolset=12.0."
+							},
+							"ToolsetPath": {
+								"type": "string",
+								"default": "",
+								"description": "MsBuild toolset (exe/dll) path. Example: --dotnetcore=/usr/local/msbuild/bin/current/MSBuild.exe"
+							},
+							"MonoPath": {
+								"type": "string",
+								"default": "Mono path. Empty to ignore Mono. Not specified for autodetect. Example: --mono=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono."
+							},
+							"DotnetCorePath": {
+								"type": "string",
+								"default": ".NET Core path. Empty to ignore .NET Core. Not specified for autodetect. Example: --dotnetcore=/usr/local/share/dotnet/dotnet."
+							},
+							"DotnetCoreSdk": {
+								"type": "string",
+								"default": ".NET Core SDK version. Example: --dotnetcoresdk=3.0.100."
+							},
+							"DisableSettingsLayer": {
+								"type": "string",
+								"default": "Disable specified settings layers. Possible values: GlobalAll, GlobalPerProduct, SolutionShared, SolutionPersonal, ProjectShared, ProjectPersonal."
+							},
+							"CachesHomePath": {
+								"type": "string",
+								"default": " Path to the directory where produced caches will be stored."
+							},
+							"MsBuildProperties": {
+								"type": "string",
+								"default": " MSBuild properties."
+							},
+							"TargetForReference": {
+								"type": "string",
+								"default": "MSBuild targets. These targets will be executed to get referenced assemblies of projects.."
+							},
+							"TargetsForItems": {
+								"type": "string",
+								"default": "MSBuild targets. These targets will be executed to get other items (e.g. Compile item) of projects.."
+							},
+							"Extensions": {
+								"type": "string",
+								"default": "Install and use specified extensions."
+							},
+							"Debug": {
+								"type": "boolean",
+								"default": "False",
+								"description": "Show debugging messages (default: False)."
+							},
+							"IncludePaths": {
+								"type": "array",
+								"default": []
+								"description": "Array of relative paths that defines which files should be cleaned up. Might contains single ('*') and double ('**') wildcards.."
+							},
+							"ExcludePaths": {
+								"type": "array",
+								"default": [],
+								"description": "Array of relative paths that defines which files should not be cleaned up. Might contains single ('*') and double ('**') wildcards. If defined along with 'included' takes higher priority')."
+							}
+						}
+					}
+				}
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",

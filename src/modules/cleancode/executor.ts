@@ -2,6 +2,7 @@ import { spawn } from 'child_process';
 import * as vscode from 'vscode';
 import { EXTENSION_NAME, NO_SLN_WARN, NONZERO_RET_CODE } from '../../constants';
 import { selectSolutionFile } from '../../utils/workspace';
+import { Config } from "../config";
 
 export class CleanupCodeExecutor {
 	public constructor(
@@ -26,7 +27,30 @@ export class CleanupCodeExecutor {
 	private executeCleanupCode(filePath: string): void {
 		this.output.appendLine(`Cleanup Code command is running for '${filePath}'...`);
 
-		const cp = spawn('cleanupcode', [filePath]);
+		let args: Array<string> = [];
+		let config = Config.getConfig().cleanupCodeConfig;
+		args.push(
+			(config.ConfigPath) ? `--config=${config.ConfigPath}` : "",
+			(config.SettingsPath) ? `-s=${config.SettingsPath}` : "",
+			(config.ProfileName) ? `-p=${config.ProfileName}` : "",
+			(config.IncludePaths) ? `--include=${config.IncludePaths.join(';')}` : "",
+			(config.ExcludePaths) ? `--exclude=${config.ExcludePaths.join(';')}` : "",
+			(config.Debug) ? `--debug=True` : "",
+			(config.Verbosity) ? `--verbosity=${config.Verbosity}` : "",
+			(config.Toolset) ? `--toolset=${config.Toolset}` : "",
+			(config.ToolsetPath) ? `--toolset-path=${config.ToolsetPath}` : "",
+			(config.MonoPath) ? `--mono=${config.MonoPath}` : "",
+			(config.DotnetCorePath) ? `--dotnetcore=${config.DotnetCorePath}` : "",
+			(config.DotnetCoreSdk) ? `--dotnetcoresdk=${config.DotnetCoreSdk}` : "",
+			(config.DisableSettingsLayer) ? `-dsl=${config.DisableSettingsLayer}` : "",
+			(config.CachesHomePath) ? `--caches-home=${config.CachesHomePath}` : "",
+			(config.TargetForReference) ? `--targets-for-references=${config.TargetForReference}` : "",
+			(config.TargetsForItems) ? `--targets-for-items=${config.TargetsForItems}` : "",
+			(config.Extensions) ? `-x=${config.Extensions}` : "",
+			filePath
+		);
+
+		const cp = spawn('cleanupcode', args);
 
 		cp.stdin?.addListener('data', message => this.output.append(message.toString()));
 		cp.stdout?.addListener('data', message => this.output.append(message.toString()));

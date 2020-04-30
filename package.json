@@ -28,11 +28,11 @@
 	],
 	"activationEvents": [
 		"workspaceContains:**/*.sln",
-		"onCommand:fakesharper.inspectcode",
-		"onCommand:fakesharper.cleandiagnostics",
-		"onCommand:fakesharper.cleanalldiagnostics",
-		"onCommand:fakesharper.cleanupcode",
-		"onCommand:fakesharper.reloaddiagnostics"
+		"onCommand:fakesharpersettings.inspectcode",
+		"onCommand:fakesharpersettings.cleandiagnostics",
+		"onCommand:fakesharpersettings.cleanalldiagnostics",
+		"onCommand:fakesharpersettings.cleanupcode",
+		"onCommand:fakesharpersettings.reloaddiagnostics"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -76,7 +76,7 @@
 			]
 		},
 		"views": {
-			"fakesharper": [
+			"fakesharpersettings": [
 				{
 					"id": "fakesharpersettings.dupfinder",
 					"name": "Dupfinder"
@@ -86,27 +86,27 @@
 		"menus": {
 			"view/title": [
 				{
-					"command": "fakesharper.dupfinder.run",
+					"command": "fakesharpersettings.dupfinder.run",
 					"when": "view == dupfinder",
 					"group": "dupfinder"
 				},
 				{
-					"command": "fakesharper.dupfinder.clean",
+					"command": "fakesharpersettings.dupfinder.clean",
 					"when": "view == dupfinder",
 					"group": "dupfinder"
 				},
 				{
-					"command": "fakesharper.cleanupcode",
+					"command": "fakesharpersettings.cleanupcode",
 					"when": "view == dupfinder",
 					"group": "cleanupcode"
 				},
 				{
-					"command": "fakesharper.inspectcode",
+					"command": "fakesharpersettings.inspectcode",
 					"when": "view == dupfinder",
 					"group": "inspectcode"
 				},
 				{
-					"command": "fakesharper.cleanalldiagnostics",
+					"command": "fakesharpersettings.cleanalldiagnostics",
 					"when": "view == dupfinder",
 					"group": "inspectcode"
 				}
@@ -200,6 +200,123 @@
 								"type": "boolean",
 								"default": "False",
 								"description": "Show debugging messages (default: False)."
+							},
+							"IncludePaths": {
+								"type": "array",
+								"default": [],
+								"description": "Array of relative paths that defines which files should be cleaned up. Might contains single ('*') and double ('**') wildcards.."
+							},
+							"ExcludePaths": {
+								"type": "array",
+								"default": [],
+								"description": "Array of relative paths that defines which files should not be cleaned up. Might contains single ('*') and double ('**') wildcards. If defined along with 'included' takes higher priority')."
+							}
+						}
+					},
+					"fakesharpersettings.inspectcode": {
+						"type": "object",
+						"default": {},
+						"description": "CLI args for code inspection",
+						"properties": {
+							"ConfigPath": {
+								"type": "string",
+								"default": "",
+								"description": "Path to configuration file here parameters are specified (use 'config-create' option to create sample file)"
+							},
+							"ProfilePath": {
+								"type": "string",
+								"default": "",
+								"description": "Path to the file to use custom settings from (default: Use R#'s solution shared settings if exists)."
+							},
+							"Verbosity": {
+								"type": "string",
+								"default": "",
+								"description": "Display this amount of information in the log",
+								"enum": [
+									"OFF",
+									"FATAL",
+									"ERROR",
+									"WARN",
+									"INFO",
+									"VERBOSE",
+									"TRACE"
+								]
+							},
+							"Toolset": {
+								"type": "string",
+								"default": "",
+								"description": "MsBuild toolset version. Highest available is used by default. Example: --toolset=12.0."
+							},
+							"ToolsetPath": {
+								"type": "string",
+								"default": "",
+								"description": "MsBuild toolset (exe/dll) path. Example: --dotnetcore=/usr/local/msbuild/bin/current/MSBuild.exe"
+							},
+							"MonoPath": {
+								"type": "string",
+								"default": "Mono path. Empty to ignore Mono. Not specified for autodetect. Example: --mono=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono."
+							},
+							"DotnetCorePath": {
+								"type": "string",
+								"default": ".NET Core path. Empty to ignore .NET Core. Not specified for autodetect. Example: --dotnetcore=/usr/local/share/dotnet/dotnet."
+							},
+							"DotnetCoreSdk": {
+								"type": "string",
+								"default": ".NET Core SDK version. Example: --dotnetcoresdk=3.0.100."
+							},
+							"DisableSettingsLayer": {
+								"type": "string",
+								"default": "Disable specified settings layers. Possible values: GlobalAll, GlobalPerProduct, SolutionShared, SolutionPersonal, ProjectShared, ProjectPersonal."
+							},
+							"CachesHomePath": {
+								"type": "string",
+								"default": " Path to the directory where produced caches will be stored."
+							},
+							"MsBuildProperties": {
+								"type": "string",
+								"default": " MSBuild properties."
+							},
+							"TargetForReference": {
+								"type": "string",
+								"default": "MSBuild targets. These targets will be executed to get referenced assemblies of projects.."
+							},
+							"TargetsForItems": {
+								"type": "string",
+								"default": "MSBuild targets. These targets will be executed to get other items (e.g. Compile item) of projects.."
+							},
+							"Extensions": {
+								"type": "string",
+								"default": "Install and use specified extensions."
+							},
+							"Project": {
+								"type": "string",
+								"default": "Analyze only projects selected by provided wildcards (default: analyze all projects in solution)."
+							},
+							"Severity": {
+								"type": "string",
+								"default": "Minimal severity level to report. (default: SUGGESTION)",
+								"enum": [
+									"INFO",
+									"HINT",
+									"SUGGESTION",
+									"WARNING",
+									"ERROR"
+								]
+							},
+							"Debug": {
+								"type": "boolean",
+								"default": "False",
+								"description": "Show debugging messages (default: False)."
+							},
+							"NoSWea": {
+								"type": "boolean",
+								"default": "False",
+								"description": "Force disable solution-wide analysis (default: False)"
+							},
+							"Swea": {
+								"type": "boolean",
+								"default": "False",
+								"description": "Force enable solution-wide analysis (default: False)"
 							},
 							"IncludePaths": {
 								"type": "array",

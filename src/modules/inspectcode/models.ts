@@ -1,3 +1,5 @@
+import { CliOptions } from "../configModels";
+
 export type File = {
 	path: string;
 	issues: Issue[];
@@ -26,3 +28,19 @@ export type Range = {
 	start: number;
 	end: number;
 };
+
+export interface ICCliOptions extends CliOptions {
+	ProfilePath?: string,
+	NoSwea?: boolean,
+	Swea?: boolean,
+	Severity?: string,
+	Project?: string,
+	IncludePaths?: Array<string>,
+	Toolset?: string,
+	ToolsetPath?: string,
+	MonoPath?: string,
+	DotnetCorePath?: string,
+	DotnetCoreSdk?: string,
+	DisableSettingsLayer?: string,
+	Extensions?: string
+}

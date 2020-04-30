@@ -1,12 +1,15 @@
 import { CCCliOptions } from "./cleancode/models";
+import { ICCliOptions } from "./inspectcode/models";
 import * as vscode from "vscode";
 import { EXTENSION_NAME } from "../constants";
 
 export class Config {
     static conf: Config;
     cleanupCodeConfig: CCCliOptions;
+    inspectCodeConfig: ICCliOptions;
     private constructor() {
         this.cleanupCodeConfig = {};
+        this.inspectCodeConfig = {};
     }
     static getConfig() {
         if (Config.conf === undefined) {
@@ -17,5 +20,6 @@ export class Config {
     loadConfig() {
         let config = vscode.workspace.getConfiguration(EXTENSION_NAME);
         this.cleanupCodeConfig = config.get<CCCliOptions>("cleanupcode", this.cleanupCodeConfig);
+        this.inspectCodeConfig = config.get<ICCliOptions>("inspectcode", this.inspectCodeConfig);
     }
 }

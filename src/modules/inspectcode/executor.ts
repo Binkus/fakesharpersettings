@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import { EXTENSION_NAME, INSPECTION_FILENAME, NONZERO_RET_CODE, NO_SLN_WARN } from '../../constants';
 import { selectSolutionFile } from '../../utils/workspace';
 import { loadDiagnostics } from './diagnostics';
+import { Config } from '../config';
 
 export class InspectCodeExecutor {
 	constructor(
@@ -29,7 +30,34 @@ export class InspectCodeExecutor {
 	private executeInspectCode(filePath: string, xmlPath: string): void {
 		this.output.appendLine(`Inspect Code command is running for '${filePath}'...`);
 
-		const cp = spawn('inspectcode', [filePath, `--output=${xmlPath}`]);
+		let args: Array<string> = [];
+		let config = Config.getConfig().inspectCodeConfig;
+		args.push(
+			(config.ConfigPath) ? `--config=${config.ConfigPath}` : "",
+			(config.ProfilePath) ? `--profile=${config.ProfilePath}` : "",
+			(config.ExcludePaths) ? `--exclude=${config.ExcludePaths.join(';')}` : "",
+			(config.IncludePaths) ? `--include=${config.IncludePaths.join(';')}` : "",
+			(config.Debug) ? `--debug=True` : "",
+			(config.NoSwea) ? `--debug=True` : "",
+			(config.Swea) ? `--debug=True` : "",
+			(config.Verbosity) ? `--verbosity=${config.Verbosity}` : "",
+			(config.Toolset) ? `--toolset=${config.Toolset}` : "",
+			(config.Severity) ? `--severity=${config.Severity}` : "",
+			(config.Project) ? `--project=${config.Project}` : "",
+			(config.ToolsetPath) ? `--toolset-path=${config.ToolsetPath}` : "",
+			(config.MonoPath) ? `--mono=${config.MonoPath}` : "",
+			(config.DotnetCorePath) ? `--dotnetcore=${config.DotnetCorePath}` : "",
+			(config.DotnetCoreSdk) ? `--dotnetcoresdk=${config.DotnetCoreSdk}` : "",
+			(config.DisableSettingsLayer) ? `-dsl=${config.DisableSettingsLayer}` : "",
+			(config.CachesHomePath) ? `--caches-home=${config.CachesHomePath}` : "",
+			(config.TargetForReference) ? `--targets-for-references=${config.TargetForReference}` : "",
+			(config.TargetsForItems) ? `--targets-for-items=${config.TargetsForItems}` : "",
+			(config.Extensions) ? `-x=${config.Extensions}` : "",
+			`--output=${xmlPath}`,
+			filePath
+		);
+
+		const cp = spawn('inspectcode', args);
 
 		cp.stdin?.addListener('data', message => this.output.append(message.toString()));
 		cp.stdout?.addListener('data', message => this.output.append(message.toString()));

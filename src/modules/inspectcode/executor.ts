@@ -49,6 +49,7 @@ export class InspectCodeExecutor {
 			(config.DotnetCorePath) ? `--dotnetcore=${config.DotnetCorePath}` : "",
 			(config.DotnetCoreSdk) ? `--dotnetcoresdk=${config.DotnetCoreSdk}` : "",
 			(config.DisableSettingsLayer) ? `-dsl=${config.DisableSettingsLayer}` : "",
+			(config.MsBuildProperties) ? `--properties=${config.MsBuildProperties}` : "",
 			(config.CachesHomePath) ? `--caches-home=${config.CachesHomePath}` : "",
 			(config.TargetForReference) ? `--targets-for-references=${config.TargetForReference}` : "",
 			(config.TargetsForItems) ? `--targets-for-items=${config.TargetsForItems}` : "",

@@ -39,6 +39,7 @@ export class CleanupCodeExecutor {
 			(config.Verbosity) ? `--verbosity=${config.Verbosity}` : "",
 			(config.Toolset) ? `--toolset=${config.Toolset}` : "",
 			(config.ToolsetPath) ? `--toolset-path=${config.ToolsetPath}` : "",
+			(config.MsBuildProperties) ? `--properties=${config.MsBuildProperties}` : "",
 			(config.MonoPath) ? `--mono=${config.MonoPath}` : "",
 			(config.DotnetCorePath) ? `--dotnetcore=${config.DotnetCorePath}` : "",
 			(config.DotnetCoreSdk) ? `--dotnetcoresdk=${config.DotnetCoreSdk}` : "",

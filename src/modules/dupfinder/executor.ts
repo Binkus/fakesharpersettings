@@ -5,6 +5,7 @@ import { DUPFINDER_FILENAME, EXTENSION_NAME, NO_SLN_WARN, NONZERO_RET_CODE } fro
 import { selectSolutionFile } from '../../utils/workspace';
 import { DupfinderTreeDataProvider } from './tree';
 import { parsefile } from './parser';
+import { Config } from '../config';
 
 export class DupfinderExecutor {
 	constructor(
@@ -32,7 +33,30 @@ export class DupfinderExecutor {
 
 		const wd: string = path.dirname(filePath);
 
-		const cp = spawn('dupfinder', [filePath, `--output=${xmlPath}`], {
+		let args = [];
+		let config = Config.getConfig().dupFinderConfig;
+		args.push(
+			(config.ConfigPath) ? `--config=${config.ConfigPath}` : "",
+			(config.Debug) ? `--debug=True` : "",
+			(config.Verbosity) ? `--verbosity=${config.Verbosity}` : "",
+			(config.CachesHomePath) ? `--caches-home=${config.CachesHomePath}` : "",
+			(config.DiscardCost) ? `--discard-cost=${config.DiscardCost}` : "",
+			(config.DiscardFields) ? `--discard-fields=${config.DiscardFields}` : "",
+			(config.DiscardLiterals) ? `--discard-literals=${config.DiscardLiterals}` : "",
+			(config.DiscardLocalVars) ? `--discard-local-vars=${config.DiscardLocalVars}` : "",
+			(config.DiscardTypes) ? `--discard-types=${config.DiscardTypes}` : "",
+			(config.ExcludeByComment) ? `--exclude-code-regions=${config.ExcludeByComment.join(';')}` : "",
+			(config.ExcludeCodeRegions) ? `--exclude-code-regions=${config.ExcludeCodeRegions.join(';')}` : "",
+			(config.Exclude) ? `-e=${config.Exclude}` : "",
+			(config.MsBuildProperties) ? `--properties=${config.MsBuildProperties}` : "",
+			(config.CachesHomePath) ? `--caches-home=${config.CachesHomePath}` : "",
+			(config.ShowStats) ? `--show-stats=${config.ShowStats}` : "",
+			(config.ShowText) ? `--show-stats=${config.ShowText}` : "",
+			`--output=${xmlPath}`,
+			filePath
+		);
+
+		const cp = spawn('dupfinder', args, {
 			cwd: wd
 		});
 

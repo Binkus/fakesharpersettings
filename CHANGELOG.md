@@ -21,4 +21,5 @@ All notable changes to the "fakesharpersettings" extension will be documented in
 
 ## [Unreleased]
 
-- Initial release
+- Fixed
+  - Properly add swea and no-swea flags to inspect code

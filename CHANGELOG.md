@@ -2,6 +2,11 @@
 
 All notable changes to the "fakesharpersettings" extension will be documented in this file.
 
+## 0.4.3
+
+- Fixed
+  - Fix inspectcode exclude and include
+
 ## 0.4.2
 
 - Added

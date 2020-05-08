@@ -24,6 +24,6 @@ export class Config {
         let config = vscode.workspace.getConfiguration(EXTENSION_NAME);
         this.cleanupCodeConfig = config.get<CCCliOptions>("cleanupcode", this.cleanupCodeConfig);
         this.inspectCodeConfig = config.get<ICCliOptions>("inspectcode", this.inspectCodeConfig);
-        this.inspectCodeConfig = config.get<DFCliOptions>("dupfinder", this.dupFinderConfig);
+        this.dupFinderConfig = config.get<DFCliOptions>("dupfinder", this.dupFinderConfig);
     }
 }

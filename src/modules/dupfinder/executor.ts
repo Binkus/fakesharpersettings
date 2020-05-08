@@ -46,7 +46,7 @@ export class DupfinderExecutor {
 			(config.DiscardLocalVars) ? `--discard-local-vars=True` : "",
 			(config.DiscardTypes) ? `--discard-types=True` : "",
 			(config.IdlePriority) ? `--idle-priority` : "",
-			(config.ExcludeByComment) ? `--exclude-code-regions=${config.ExcludeByComment.join(';')}` : "",
+			(config.ExcludeByComment) ? `--exclude-by-comment=${config.ExcludeByComment.join(';')}` : "",
 			(config.ExcludeCodeRegions) ? `--exclude-code-regions=${config.ExcludeCodeRegions.join(';')}` : "",
 			(config.Exclude) ? `-e=${config.Exclude}` : "",
 			(config.MsBuildProperties) ? `--properties=${config.MsBuildProperties}` : "",

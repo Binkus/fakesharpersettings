@@ -2,6 +2,15 @@
 
 All notable changes to the "fakesharpersettings" extension will be documented in this file.
 
+## 0.4.2
+
+- Added
+  - Ability to configure command line arguments for dupfinder.exe
+- Fixed
+  - Properly add swea and no-swea flags to inspect code
+  - DupFinder not showing reports if only 1 duplicate was reported.
+  - DupFinder view not having the menu items
+
 ## 0.4.1
 
 - Added:
@@ -20,10 +29,3 @@ All notable changes to the "fakesharpersettings" extension will be documented in
 ## Forked from fakesharper at 0.3.0
 
 ## [Unreleased]
-
-- Added
-  - Ability to configure command line arguments for dupfinder.exe
-- Fixed
-  - Properly add swea and no-swea flags to inspect code
-  - DupFinder not showing reports if only 1 duplicate was reported.
-  - DupFinder view not having the menu items

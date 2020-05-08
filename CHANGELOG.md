@@ -24,3 +24,4 @@ All notable changes to the "fakesharpersettings" extension will be documented in
 - Fixed
   - Properly add swea and no-swea flags to inspect code
   - DupFinder not showing reports if only 1 duplicate was reported.
+  - DupFinder view not having the menu items

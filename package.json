@@ -87,27 +87,27 @@
 			"view/title": [
 				{
 					"command": "fakesharpersettings.dupfinder.run",
-					"when": "view == dupfinder",
+					"when": "view == fakesharpersettings.dupfinder",
 					"group": "dupfinder"
 				},
 				{
 					"command": "fakesharpersettings.dupfinder.clean",
-					"when": "view == dupfinder",
+					"when": "view == fakesharpersettings.dupfinder",
 					"group": "dupfinder"
 				},
 				{
 					"command": "fakesharpersettings.cleanupcode",
-					"when": "view == dupfinder",
+					"when": "view == fakesharpersettings.dupfinder",
 					"group": "cleanupcode"
 				},
 				{
 					"command": "fakesharpersettings.inspectcode",
-					"when": "view == dupfinder",
+					"when": "view == fakesharpersettings.dupfinder",
 					"group": "inspectcode"
 				},
 				{
 					"command": "fakesharpersettings.cleanalldiagnostics",
-					"when": "view == dupfinder",
+					"when": "view == fakesharpersettings.dupfinder",
 					"group": "inspectcode"
 				}
 			]

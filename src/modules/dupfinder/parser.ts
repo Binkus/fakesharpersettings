@@ -20,8 +20,12 @@ export function parsefile(path: string): DuplicatesReport {
 		},
 		duplicates: []
 	};
-
-	// TODO: Test for 0 and 1 duplicate.
+	if (json.DuplicatesReport.Duplicates.Duplicate === undefined) {
+		return report;
+	}
+	if (json.DuplicatesReport.Duplicates.Duplicate.length === undefined) {
+		json.DuplicatesReport.Duplicates.Duplicate = [json.DuplicatesReport.Duplicates.Duplicate];
+	}
 	for (let i = 0; i < json.DuplicatesReport.Duplicates.Duplicate.length; i++) {
 		const duplicate: Duplicate = {
 			cost: parseInt(json.DuplicatesReport.Duplicates.Duplicate[i].attributes["@_Cost"]),

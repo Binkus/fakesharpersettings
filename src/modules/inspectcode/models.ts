@@ -31,11 +31,12 @@ export type Range = {
 
 export interface ICCliOptions extends CliOptions {
 	ProfilePath?: string,
+	Exclude?: string,
 	NoSwea?: boolean,
 	Swea?: boolean,
 	Severity?: string,
 	Project?: string,
-	IncludePaths?: Array<string>,
+	Include?: string,
 	Toolset?: string,
 	ToolsetPath?: string,
 	MonoPath?: string,

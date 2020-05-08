@@ -19,6 +19,10 @@ export function parsefile(filePath: string): File[] {
 	const fileIssueLists: File[] = [];
 	const issueTypes: IssueType[] = [];
 
+	if (json.Report.IssueTypes === "") {
+		return fileIssueLists;
+	}
+
 	for (let i = 0; i < json.Report.IssueTypes.IssueType.length; i++) {
 		const item: any = json.Report.IssueTypes.IssueType[i];
 		const issueType: IssueType = {

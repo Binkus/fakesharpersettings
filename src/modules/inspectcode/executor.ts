@@ -35,8 +35,8 @@ export class InspectCodeExecutor {
 		args.push(
 			(config.ConfigPath) ? `--config=${config.ConfigPath}` : "",
 			(config.ProfilePath) ? `--profile=${config.ProfilePath}` : "",
-			(config.ExcludePaths) ? `--exclude=${config.ExcludePaths.join(';')}` : "",
-			(config.IncludePaths) ? `--include=${config.IncludePaths.join(';')}` : "",
+			(config.Exclude) ? `--exclude=${config.Exclude}` : "",
+			(config.Include) ? `--include=${config.Include}` : "",
 			(config.Debug) ? `--debug=True` : "",
 			(config.NoSwea) ? `--no-swea=True` : "",
 			(config.Swea) ? `--swea=True` : "",

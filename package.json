@@ -318,15 +318,15 @@
 								"default": "False",
 								"description": "Force enable solution-wide analysis (default: False)"
 							},
-							"IncludePaths": {
-								"type": "array",
-								"default": [],
-								"description": "Array of relative paths that defines which files should be cleaned up. Might contains single ('*') and double ('**') wildcards.."
+							"Include": {
+								"type": "string",
+								"default": "",
+								"description": "Analyze only files selected by provided wildcards (default: analyze all files in solution)."
 							},
-							"ExcludePaths": {
-								"type": "array",
-								"default": [],
-								"description": "Array of relative paths that defines which files should not be cleaned up. Might contains single ('*') and double ('**') wildcards. If defined along with 'included' takes higher priority')."
+							"Exclude": {
+								"type": "string",
+								"default": "",
+								"description": "Exclude files selected by provided wildcards from analysis (default: analyze all files in solution)."
 							}
 						}
 					},
